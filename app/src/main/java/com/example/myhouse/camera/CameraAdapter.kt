@@ -2,14 +2,20 @@ package com.example.myhouse.camera
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myhouse.databinding.ItemCameraBinding
+import com.example.myhouse.response.camera.CameraModel
+import com.example.myhouse.utils.loadImage
 
-class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CameraViewHolder {
+class CameraAdapter: ListAdapter<CameraModel.Data.Camera, CameraViewHolder>(
+    CameraDiffCallback()
+) {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CameraViewHolder {
         return CameraViewHolder(
             ItemCameraBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -19,19 +25,20 @@ class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
         )
     }
 
-    override fun getItemCount(): Int {
-    return 100
-    }
-
     override fun onBindViewHolder(holder: CameraViewHolder, position: Int) {
-        holder.bind(position)
+        holder.bind(getItem(position))
     }
+}
 
-    inner class CameraViewHolder(private val binding: ItemCameraBinding) :
-        ViewHolder(binding.root) {
-        fun bind(position: Int) {
-            binding.tvRoomName.isVisible = position == 0
-        }
-
+class CameraViewHolder(private val binding: ItemCameraBinding) : ViewHolder(binding.root) {
+    fun bind(position: CameraModel.Data.Camera) = with(binding) {
+        tvCamera.text = position.name
+        tvRoomName.text = position.room
+        imgRoom.loadImage(position.snapshot)
     }
+}
+
+class CameraDiffCallback : DiffUtil.ItemCallback<CameraModel.Data.Camera>() {
+    override fun areContentsTheSame(oldItem: CameraModel.Data.Camera, newItem: CameraModel.Data.Camera) = oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: CameraModel.Data.Camera, newItem: CameraModel.Data.Camera) = oldItem == newItem
 }
