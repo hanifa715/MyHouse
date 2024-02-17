@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.myhouse.databinding.ItemCameraBinding
 import com.example.myhouse.data.response.camera.CameraModel
-import com.example.myhouse.utils.loadImage
 
 class CameraAdapter: ListAdapter<CameraModel.Data.Camera, CameraViewHolder>(
     CameraDiffCallback()

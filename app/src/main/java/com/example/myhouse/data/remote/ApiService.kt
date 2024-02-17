@@ -6,9 +6,9 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("cameras")
+    @GET("cameras/")
     suspend fun getCameras(): Response<CameraModel>
 
-    @GET("doors")
+    @GET("doors/")
     suspend fun getDoors(): Response<DoorModel>
 }

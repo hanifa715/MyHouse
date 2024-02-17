@@ -6,10 +6,9 @@ import androidx.lifecycle.liveData
 import com.example.myhouse.data.repository.Resource
 import kotlinx.coroutines.Dispatchers
 
-
-abstract class BaseRepository() {
+abstract class BaseRepository {
     fun <T> performRequest(apiCall: suspend () -> T):LiveData<Resource<T>> =
-        liveData(Dispatchers.Main) {
+        liveData(Dispatchers.IO) {
             emit(Resource.Loading())
             try {
                 val response = apiCall.invoke()

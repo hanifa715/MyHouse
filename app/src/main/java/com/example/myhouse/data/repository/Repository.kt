@@ -10,9 +10,8 @@ import com.example.myhouse.domain.repositories.DoorsRepository
 import javax.inject.Inject
 
 
-class Repository @Inject constructor (private val apiService: ApiService) : CamerasRepository,
-    DoorsRepository, BaseRepository() {
-
+class Repository(private val apiService: ApiService) : CamerasRepository, DoorsRepository,
+    BaseRepository() {
     override fun getCameras(): LiveData<Resource<CameraModel>> = performRequest {
         apiService.getCameras().body() as CameraModel
     }
