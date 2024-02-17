@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.myhouse.databinding.ItemCameraBinding
-import com.example.myhouse.data.response.camera.CameraModel
+import com.example.myhouse.domain.models.camera.CameraModel
 
 class CameraAdapter: ListAdapter<CameraModel.Data.Camera, CameraViewHolder>(
     CameraDiffCallback()
@@ -24,6 +24,7 @@ class CameraAdapter: ListAdapter<CameraModel.Data.Camera, CameraViewHolder>(
             )
         )
     }
+
     override fun onBindViewHolder(holder: CameraViewHolder, position: Int) {
         holder.bind(getItem(position))
     }

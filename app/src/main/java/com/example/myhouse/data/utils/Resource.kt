@@ -1,4 +1,4 @@
-package com.example.myhouse.data.repository
+package com.example.myhouse.data.utils
 
 sealed class Resource<T>(
     val message:String ?= null,
@@ -6,5 +6,5 @@ sealed class Resource<T>(
 ){
     class Loading<T>: Resource<T>()
     class Success<T>(data: T): Resource<T>(data = data)
-    class Error<T>(message: String): Resource<T>(message = message)
+    class Error<T>(message: String?): Resource<T>(message = message)
 }

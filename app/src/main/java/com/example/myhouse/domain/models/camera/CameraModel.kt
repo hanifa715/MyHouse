@@ -1,11 +1,12 @@
-package com.example.myhouse.data.response.camera
+package com.example.myhouse.domain.models.camera
 
 data class CameraModel(
-    val `data`: Data,
-    val success: Boolean
+    var id:Int ?= null,
+    var data: Data,
+    var success: Boolean
 ){
     data class Data(
-        val cameras: List<Camera>,
+        var cameras: List<Camera>,
         val room: List<String>
     ){
         data class Camera(

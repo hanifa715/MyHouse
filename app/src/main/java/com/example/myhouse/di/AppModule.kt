@@ -24,6 +24,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
+
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient):Retrofit{
@@ -33,6 +34,7 @@ class AppModule {
             .client(okHttpClient)
             .build()
     }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(interceptor:HttpLoggingInterceptor):OkHttpClient{
@@ -44,6 +46,7 @@ class AppModule {
             .addInterceptor(interceptor)
             .build()
     }
+
     @Provides
     @Singleton
     fun provideLoggingInterceptor():HttpLoggingInterceptor{
@@ -51,6 +54,7 @@ class AppModule {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
+
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)

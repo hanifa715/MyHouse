@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.myhouse.presentation.camera.CameraFragment
 import com.example.myhouse.presentation.door.DoorsFragment
 
+
 class MainAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount() = 2

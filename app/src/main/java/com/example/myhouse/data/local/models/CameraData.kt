@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class CameraData(
     @PrimaryKey
     var id: Int? = null,
-    val count: Int,
+    val count: Int
 )

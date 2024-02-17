@@ -1,8 +1,9 @@
-package com.example.myhouse.data.response.door
+package com.example.myhouse.domain.models.door
 
 import com.google.gson.annotations.SerializedName
 
 data class DoorModel(
+    var id:Int?=null,
     @SerializedName("data")
     val data: List<Data>,
     @SerializedName("success")
