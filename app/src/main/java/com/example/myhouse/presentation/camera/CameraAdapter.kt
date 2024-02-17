@@ -1,12 +1,13 @@
-package com.example.myhouse.camera
+package com.example.myhouse.presentation.camera
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import coil.load
 import com.example.myhouse.databinding.ItemCameraBinding
-import com.example.myhouse.response.camera.CameraModel
+import com.example.myhouse.data.response.camera.CameraModel
 import com.example.myhouse.utils.loadImage
 
 class CameraAdapter: ListAdapter<CameraModel.Data.Camera, CameraViewHolder>(
@@ -24,17 +25,16 @@ class CameraAdapter: ListAdapter<CameraModel.Data.Camera, CameraViewHolder>(
             )
         )
     }
-
     override fun onBindViewHolder(holder: CameraViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }
 
 class CameraViewHolder(private val binding: ItemCameraBinding) : ViewHolder(binding.root) {
-    fun bind(position: CameraModel.Data.Camera) = with(binding) {
+    fun bind(position: CameraModel.Data.Camera) = with(binding){
         tvCamera.text = position.name
         tvRoomName.text = position.room
-        imgRoom.loadImage(position.snapshot)
+        imgRoom.load(position.snapshot)
     }
 }
 

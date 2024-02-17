@@ -1,6 +1,9 @@
 package com.example.myhouse.di
 
-import com.example.myhouse.data.ApiService
+import com.example.myhouse.data.remote.ApiService
+import com.example.myhouse.data.repository.Repository
+import com.example.myhouse.domain.repositories.CamerasRepository
+import com.example.myhouse.domain.repositories.DoorsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,12 +13,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 class AppModule {
 
     @Provides
+    @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://cars.cprogroup.ru/api/rubetek/")
@@ -25,7 +30,10 @@ class AppModule {
     }
 
     @Provides
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor):OkHttpClient{
+
+    @Singleton
+
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .writeTimeout(20, TimeUnit.SECONDS)
             .readTimeout(20, TimeUnit.SECONDS)
@@ -36,14 +44,26 @@ class AppModule {
     }
 
     @Provides
-    fun provideLoggingInterceptor():HttpLoggingInterceptor{
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
 
     @Provides
+
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+    @Provides
+    fun provideCamerasRepository(apiService: ApiService): CamerasRepository {
+        return Repository(apiService)
+
+    }
+    @Provides
+    fun provideDoorsRepository(apiService: ApiService): DoorsRepository {
+        return Repository(apiService)
+
     }
 }

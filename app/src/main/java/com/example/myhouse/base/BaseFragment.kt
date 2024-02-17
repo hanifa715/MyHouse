@@ -2,14 +2,14 @@ package com.example.myhouse.base
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import com.example.myhouse.data.Resource
+import com.example.myhouse.data.repository.Resource
 import com.example.myhouse.utils.showToast
 
 abstract class BaseFragment:Fragment() {
 
     fun <T> LiveData<Resource<T>>.stateHandler(
         success:(data:T) -> Unit,
-        state: ((res:Resource<T>)->Unit) ?= null
+        state: ((res: Resource<T>)->Unit) ?= null
     ){
         this.observe(this@BaseFragment){res->
             state?.invoke(res)
